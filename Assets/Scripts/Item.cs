@@ -18,7 +18,6 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
         if (other.gameObject.name.Contains("player"))
         {
             // Collect Item
