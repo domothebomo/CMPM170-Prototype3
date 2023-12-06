@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    public GameObject ItemManager;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +22,7 @@ public class Item : MonoBehaviour
     {
         if (other.gameObject.name.Contains("player"))
         {
-            // Collect Item
+            ItemManager.GetComponent<ItemManager>().collectItem(gameObject);
             Destroy(gameObject);
         }
     }
