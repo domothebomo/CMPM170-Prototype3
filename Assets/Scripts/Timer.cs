@@ -11,7 +11,7 @@ public class Timer : MonoBehaviour
     public float TimeLimit = 60.0f;
     public bool ticking = false;
 
-    private float timeSinceStart = 0;
+    [HideInInspector] public float timeSinceStart = 0;
 
     private void Start()
     {

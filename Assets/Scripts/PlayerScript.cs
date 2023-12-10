@@ -40,7 +40,7 @@ public class PlayerScript : MonoBehaviour
             Cam.transform.localRotation = Quaternion.Euler(-turny, 0, 0);
             if (Input.GetMouseButtonDown(0))
             {
-                //right click
+                //left click
             }
         }
     }
