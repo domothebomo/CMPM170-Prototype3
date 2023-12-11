@@ -12,6 +12,8 @@ public class ItemManager : MonoBehaviour
     public GameObject gameOverText;
 
     public GameObject itemCountText;
+    public LeaveTrigger shipLeave;
+    public Timer timer;
 
     // Track number of items collected
     int itemsCollected = 0;
@@ -45,6 +47,7 @@ public class ItemManager : MonoBehaviour
 
     public void endGame()
     {
+        timer.ticking = false;
         gameOverScreen.SetActive(true);
         UnityEngine.Cursor.lockState = CursorLockMode.Confined;
         player.GetComponent<PlayerScript>().moveRestricted = true;
@@ -53,6 +56,7 @@ public class ItemManager : MonoBehaviour
         {
             // Ship leaving you anim
             gameOverText.GetComponent<TMP_Text>().text = "With the storm closing in, your crew left you behind...";
+            shipLeave.PlayAnim("ShipSinking");
             return;
         }
 
@@ -62,6 +66,7 @@ public class ItemManager : MonoBehaviour
             {
                 // Ship sinks anim
                 gameOverText.GetComponent<TMP_Text>().text = "Without enough supplies, you were lost at sea...";
+                shipLeave.PlayAnim("ShipSinking");
                 return;
             }
 
@@ -69,5 +74,6 @@ public class ItemManager : MonoBehaviour
 
         // Ship sails off anim
         gameOverText.GetComponent<TMP_Text>().text = "The voyage was a success!";
+        shipLeave.PlayAnim("ShipLeave");
     }
 }

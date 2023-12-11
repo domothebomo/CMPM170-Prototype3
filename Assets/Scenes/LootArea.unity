@@ -1040,6 +1040,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &163087301 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1510543957049123567, guid: fabb6866788d4334c8f4a68d04805e83, type: 3}
+  m_PrefabInstance: {fileID: 7054213364314801162}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da579a03ae3020d4a8763744be1de64e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &209383901
 GameObject:
   m_ObjectHideFlags: 0
@@ -5391,9 +5402,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8417938050443175603, guid: 1bc5ce4544fa3214f87dab4e61464ce2, type: 3}
+      propertyPath: timer
+      value: 
+      objectReference: {fileID: 2087357457}
+    - target: {fileID: 8417938050443175603, guid: 1bc5ce4544fa3214f87dab4e61464ce2, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 2087357456}
+    - target: {fileID: 8417938050443175603, guid: 1bc5ce4544fa3214f87dab4e61464ce2, type: 3}
+      propertyPath: shipLeave
+      value: 
+      objectReference: {fileID: 163087301}
     - target: {fileID: 8417938050443175603, guid: 1bc5ce4544fa3214f87dab4e61464ce2, type: 3}
       propertyPath: gameOverText
       value: 
@@ -5924,6 +5943,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 80356439084859629, guid: 1bc5ce4544fa3214f87dab4e61464ce2, type: 3}
   m_PrefabInstance: {fileID: 1857405201}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2141101580 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8417938050443175603, guid: 1bc5ce4544fa3214f87dab4e61464ce2, type: 3}
+  m_PrefabInstance: {fileID: 1857405201}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141101579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a5422ce2787c84e922c6dd085d5df7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2144448009 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6485724994888149398, guid: a59eba4125c23624094d917c43d8a8b7, type: 3}
@@ -6178,6 +6208,10 @@ PrefabInstance:
       propertyPath: camleave
       value: 
       objectReference: {fileID: 18314953}
+    - target: {fileID: 1510543957049123567, guid: fabb6866788d4334c8f4a68d04805e83, type: 3}
+      propertyPath: itemManager
+      value: 
+      objectReference: {fileID: 2141101580}
     - target: {fileID: 2771026094551466346, guid: fabb6866788d4334c8f4a68d04805e83, type: 3}
       propertyPath: m_Name
       value: ship
@@ -6221,10 +6255,6 @@ PrefabInstance:
     - target: {fileID: 6949552918347936223, guid: fabb6866788d4334c8f4a68d04805e83, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7467251043704994338, guid: fabb6866788d4334c8f4a68d04805e83, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.6371
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
