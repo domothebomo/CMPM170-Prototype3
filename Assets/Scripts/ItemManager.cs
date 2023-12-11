@@ -22,19 +22,25 @@ public class ItemManager : MonoBehaviour
     void Start()
     {
         gameOverScreen.SetActive(false);
-        shoppingList.Add("crate", 6);
+        shoppingList.Add("crate", 3);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void collectItem(GameObject item)
     {
         itemsCollected++;
-        itemCountText.GetComponent<TMP_Text>().text = "Items: " + itemsCollected.ToString() + "/6";
+        itemCountText.GetComponent<TMP_Text>().text = "Items: " + itemsCollected.ToString() + "/" + shoppingList["crate"];
+    }
+
+    public void removeItem(GameObject item)
+    {
+        itemsCollected--;
+        itemCountText.GetComponent<TMP_Text>().text = "Items: " + itemsCollected.ToString() + "/" + shoppingList["crate"];
     }
 
     public void endGame()
@@ -43,25 +49,25 @@ public class ItemManager : MonoBehaviour
         UnityEngine.Cursor.lockState = CursorLockMode.Confined;
         player.GetComponent<PlayerScript>().moveRestricted = true;
 
-        if (Physics.Raycast(player.transform.position, Vector3.down, out hit, 2.0f))
+        if (!player.GetComponent<PlayerScript>().isOnDeck()) 
         {
-            if (hit.collider.transform.parent == null || !hit.collider.transform.parent.gameObject.name.Contains("pier"))
-            {
-                gameOverText.GetComponent<TMP_Text>().text = "With the storm closing in, your crew left you behind...";
-                return;
-            }
+            // Ship leaving you anim
+            gameOverText.GetComponent<TMP_Text>().text = "With the storm closing in, your crew left you behind...";
+            return;
         }
 
         foreach (KeyValuePair<string, int> kvp in shoppingList)
         {
             if (itemsCollected < kvp.Value)
             {
+                // Ship sinks anim
                 gameOverText.GetComponent<TMP_Text>().text = "Without enough supplies, you were lost at sea...";
                 return;
             }
 
         }
 
+        // Ship sails off anim
         gameOverText.GetComponent<TMP_Text>().text = "The voyage was a success!";
     }
 }

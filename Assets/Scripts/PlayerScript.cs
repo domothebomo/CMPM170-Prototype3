@@ -8,11 +8,19 @@ public class PlayerScript : MonoBehaviour
 {
     private CharacterController CC;
     public Camera Cam;
+    public GameObject holdPos;
     public float speed = 1;
     float turnx = 0.0f;
     float turny = 0.0f;
 
     public bool moveRestricted = false;
+    
+    bool input;
+    RaycastHit hit;
+
+    GameObject heldItem = null;
+    bool onDeck = false;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -43,6 +51,14 @@ public class PlayerScript : MonoBehaviour
                 //left click
             }
         }
+
+        checkInput();
+        if (heldItem != null)
+        {
+            //heldItem.transform.localPosition = Vector3.zero;
+            //heldItem.transform.rotation = holdPos.transform.rotation;
+            heldItem.GetComponent<Rigidbody>().AddForce(holdPos.transform.position - heldItem.transform.position, ForceMode.Impulse);
+        }
     }
     private void FixedUpdate()
     {
@@ -70,6 +86,69 @@ public class PlayerScript : MonoBehaviour
                 direction.y = -1;
             }
             CC.Move(direction);
+        }
+    }
+
+    void checkInput()
+    {
+        input = Input.GetButtonDown("Fire1");
+        if (input)
+        {
+            Debug.Log("interact");
+            if (heldItem != null)
+            {
+                Debug.Log("drop item");
+                dropItem();
+            }
+            else if (Physics.Raycast(Cam.gameObject.transform.position, Cam.gameObject.transform.forward, out hit, 2.0f))
+            {
+                if (hit.collider.gameObject.name.Contains("Item"))
+                {
+                    Debug.Log("pickup item");
+                    pickUpItem(hit.collider.gameObject);
+                }
+            }
+        }
+    }
+
+    void pickUpItem(GameObject item)
+    {
+        heldItem = item;
+        heldItem.transform.position = holdPos.transform.position;
+        heldItem.transform.rotation = holdPos.transform.rotation;
+        heldItem.transform.parent = holdPos.transform;
+        //heldItem.GetComponent<Rigidbody>().useGravity = false;
+        //heldItem.GetComponent<BoxCollider>().enabled = false;
+    }
+
+    void dropItem()
+    {
+        heldItem.transform.parent = null;
+        //heldItem.GetComponent<Rigidbody>().useGravity = true;
+        //heldItem.GetComponent<BoxCollider>().enabled = true;
+        heldItem = null;
+    }
+
+    public bool isOnDeck()
+    {
+        return onDeck;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name.Contains("DropPoint"))
+        {
+            Debug.Log("enter");
+            onDeck = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name.Contains("DropPoint"))
+        {
+            Debug.Log("exit");
+            onDeck = false;
         }
     }
 }

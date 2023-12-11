@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject ItemSpawned;
+    public List<GameObject> ItemTable;
     
     public GameObject SpawnAreas;
 
@@ -23,7 +23,7 @@ public class SpawnManager : MonoBehaviour
         for (int i = 0; i < NumItemsSpawned; i++)
         {
             GameObject spawn = SpawnAreasList[Random.Range(0, SpawnAreasList.Count)];
-            Instantiate(ItemSpawned, spawn.transform.position, Quaternion.identity);
+            Instantiate(ItemTable[Random.Range(0, ItemTable.Count)], spawn.transform.position, Quaternion.identity);
             SpawnAreasList.Remove(spawn);
         }
     }

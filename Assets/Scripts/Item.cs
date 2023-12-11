@@ -20,10 +20,17 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name.Contains("player"))
+        if (other.gameObject.name.Contains("DropPoint"))
         {
             ItemManager.GetComponent<ItemManager>().collectItem(gameObject);
-            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name.Contains("DropPoint"))
+        {
+            ItemManager.GetComponent<ItemManager>().removeItem(gameObject);
         }
     }
 }

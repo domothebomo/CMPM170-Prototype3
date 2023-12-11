@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -2601036988047453135}
   - component: {fileID: 2296384138606286872}
   m_Layer: 0
-  m_Name: Item
+  m_Name: Item-FoodCrate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
