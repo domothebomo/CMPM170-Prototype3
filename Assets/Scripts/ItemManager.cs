@@ -15,16 +15,30 @@ public class ItemManager : MonoBehaviour
     public LeaveTrigger shipLeave;
     public Timer timer;
 
+    public GameObject crateText;
+    public GameObject boardText;
+    public GameObject weaponText;
+
     // Track number of items collected
-    int itemsCollected = 0;
+    //int itemsCollected = 0;
     //Dictionary<string, int> itemsCollected = new Dictionary<string, int>();
     Dictionary<string, int> shoppingList = new Dictionary<string, int>();
+    Dictionary<string, int> itemsCollected = new Dictionary<string, int>();
     
     // Start is called before the first frame update
     void Start()
     {
         gameOverScreen.SetActive(false);
-        shoppingList.Add("crate", 3);
+        shoppingList.Add("Food Crates", Random.Range(0,3));
+        itemsCollected.Add("Food Crates", 0);
+        shoppingList.Add("Boards", Random.Range(0, 3));
+        itemsCollected.Add("Boards", 0);
+        shoppingList.Add("Weapons", Random.Range(0, 3));
+        itemsCollected.Add("Weapons", 0);
+
+        crateText.GetComponent<TMP_Text>().text = "Food Crates - " + itemsCollected["Food Crates"] + "/" + shoppingList["Food Crates"];
+        boardText.GetComponent<TMP_Text>().text = "Boards - " + itemsCollected["Boards"] + "/" + shoppingList["Boards"];
+        weaponText.GetComponent<TMP_Text>().text = "Weapons - " + itemsCollected["Weapons"] + "/" + shoppingList["Weapons"];
     }
 
     // Update is called once per frame
@@ -35,14 +49,47 @@ public class ItemManager : MonoBehaviour
 
     public void collectItem(GameObject item)
     {
-        itemsCollected++;
-        itemCountText.GetComponent<TMP_Text>().text = "Items: " + itemsCollected.ToString() + "/" + shoppingList["crate"];
+        string name = item.GetComponent<Item>().itemName;
+        itemsCollected[name] += 1;
+        Debug.Log(name + ": " + itemsCollected[name].ToString());
+
+        switch (name)
+        {
+            case "Food Crates":
+                crateText.GetComponent<TMP_Text>().text = "Food Crates - " + itemsCollected["Food Crates"] + "/" + shoppingList["Food Crates"];
+                break;
+            case "Boards":
+                boardText.GetComponent<TMP_Text>().text = "Boards - " + itemsCollected["Boards"] + "/" + shoppingList["Boards"];
+                break;
+            case "Weapons":
+                weaponText.GetComponent<TMP_Text>().text = "Weapons - " + itemsCollected["Weapons"] + "/" + shoppingList["Weapons"];
+                break;
+        }
     }
 
     public void removeItem(GameObject item)
     {
-        itemsCollected--;
-        itemCountText.GetComponent<TMP_Text>().text = "Items: " + itemsCollected.ToString() + "/" + shoppingList["crate"];
+        string name = item.GetComponent<Item>().itemName;
+        itemsCollected[name] -= 1;
+        Debug.Log(name + ": " + itemsCollected[name].ToString());
+
+        switch (name)
+        {
+            case "Food Crates":
+                crateText.GetComponent<TMP_Text>().text = "Food Crates - " + itemsCollected["Food Crates"] + "/" + shoppingList["Food Crates"];
+                break;
+            case "Boards":
+                boardText.GetComponent<TMP_Text>().text = "Boards - " + itemsCollected["Boards"] + "/" + shoppingList["Boards"];
+                break;
+            case "Weapons":
+                weaponText.GetComponent<TMP_Text>().text = "Weapons - " + itemsCollected["Weapons"] + "/" + shoppingList["Weapons"];
+                break;
+        }
+    }
+
+    public Dictionary<string, int> getShoppingList()
+    {
+        return shoppingList;
     }
 
     public void endGame()
@@ -62,7 +109,7 @@ public class ItemManager : MonoBehaviour
 
         foreach (KeyValuePair<string, int> kvp in shoppingList)
         {
-            if (itemsCollected < kvp.Value)
+            if (itemsCollected[kvp.Key] < kvp.Value)
             {
                 // Ship sinks anim
                 gameOverText.GetComponent<TMP_Text>().text = "Without enough supplies, you were lost at sea...";

@@ -14,6 +14,8 @@ public class PlayerScript : MonoBehaviour
     float turny = 0.0f;
 
     public bool moveRestricted = false;
+
+    public GameObject manuscript;
     
     bool input;
     RaycastHit hit;
@@ -107,6 +109,19 @@ public class PlayerScript : MonoBehaviour
                     Debug.Log("pickup item");
                     pickUpItem(hit.collider.gameObject);
                 }
+            }
+        }
+
+        input = Input.GetButtonDown("Fire2");
+        if (input)
+        {
+            if (manuscript.GetComponent<Animator>().GetBool("Open"))
+            {
+                manuscript.GetComponent<Animator>().SetBool("Open", false);
+            }
+            else
+            {
+                manuscript.GetComponent<Animator>().SetBool("Open", true);
             }
         }
     }
